@@ -148,3 +148,21 @@ func CheckResponse(r *http.Response) error {
 	}
 	return errorResponse
 }
+
+type RateLimit struct {
+}
+
+func (c *Client) RateLimit() (*RateLimit, *http.Response, error) {
+	req, err := c.NewRequest("GET", "/rate_limit", nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rResp := new(RateLimit)
+	resp, err := c.Do(req, rResp)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return rResp, resp, err
+}
