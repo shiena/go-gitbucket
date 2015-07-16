@@ -28,7 +28,7 @@ type Client struct {
 	BaseURL      *url.URL
 	UserAgent    string
 	Users        *UsersService
-	Repositories *interface{}
+	Repositories *RepositoriesService
 	Pullrequests *interface{}
 	Issues       *interface{}
 }
@@ -50,6 +50,7 @@ func NewClient(urlStr, token string) (*Client, error) {
 		UserAgent:   userAgent,
 	}
 	client.Users = &UsersService{client}
+	client.Repositories = &RepositoriesService{client}
 	return client, nil
 }
 
