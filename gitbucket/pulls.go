@@ -52,3 +52,19 @@ func (s *PullRequestsService) List(owner, repo string) ([]PullRequest, *http.Res
 
 	return *pulls, resp, err
 }
+
+func (s *PullRequestsService) Get(owner, repo string, id int) (*PullRequest, *http.Response, error) {
+	u := fmt.Sprintf("/repos/%v/%v/pulls/%v", owner, repo, id)
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	pull := new(PullRequest)
+	resp, err := s.client.Do(req, pull)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pull, resp, err
+}
