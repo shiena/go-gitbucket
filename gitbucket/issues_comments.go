@@ -34,3 +34,19 @@ func (s *IssuesService) ListComments(owner, repo string, id int) ([]IssueComment
 
 	return *comments, resp, err
 }
+
+func (s *IssuesService) CreateComment(owner, repo string, id int, comment *IssueComment) (*IssueComment, *http.Response, error) {
+	u := fmt.Sprintf("/repos/%v/%v/issues/%v/comments", owner, repo, id)
+	req, err := s.client.NewRequest("POST", u, comment)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	c := new(IssueComment)
+	resp, err := s.client.Do(req, c)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return c, resp, err
+}
