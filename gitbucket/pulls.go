@@ -37,6 +37,29 @@ type PullRequest struct {
 	StatusesURL       *string            `json:"statuses_url"`
 }
 
+type CommitAuthor struct {
+	Name  *string    `json:"name"`
+	Email *string    `json:"email"`
+	Date  *time.Time `json:"date"`
+}
+
+type Commit struct {
+	SHA       *string       `json:"sha,omitempty"`
+	Message   *string       `json:"message,omitempty"`
+	Author    *CommitAuthor `json:"author,omitempty"`
+	Committer *CommitAuthor `json:"committer,omitempty"`
+	URL       *string       `json:"url,omitempty"`
+}
+
+type RepositoryCommit struct {
+	SHA       string   `json:"sha"`
+	Commit    *Commit  `json:"commit"`
+	Author    *User    `json:"author,omitempty"`
+	Committer *User    `json:"committer,omitempty"`
+	Parents   []Commit `json:"parents"`
+	URL       *string  `json:"url"`
+}
+
 func (s *PullRequestsService) List(owner, repo string) ([]PullRequest, *http.Response, error) {
 	u := fmt.Sprintf("/repos/%v/%v/pulls", owner, repo)
 	req, err := s.client.NewRequest("GET", u, nil)
@@ -67,4 +90,20 @@ func (s *PullRequestsService) Get(owner, repo string, id int) (*PullRequest, *ht
 	}
 
 	return pull, resp, err
+}
+
+func (s *PullRequestsService) ListCommits(owner, repo string, id int) ([]RepositoryCommit, *http.Response, error) {
+	u := fmt.Sprintf("/repos/%v/%v/pulls/%v/commits", owner, repo, id)
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	commit := new([]RepositoryCommit)
+	resp, err := s.client.Do(req, commit)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return *commit, resp, err
 }
