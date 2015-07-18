@@ -30,7 +30,7 @@ type Client struct {
 	Users        *UsersService
 	Repositories *RepositoriesService
 	PullRequests *PullRequestsService
-	Issues       *interface{}
+	Issues       *IssuesService
 }
 
 // NewClient initializes and returns a API client.
@@ -52,6 +52,7 @@ func NewClient(urlStr, token string) (*Client, error) {
 	client.Users = &UsersService{client}
 	client.Repositories = &RepositoriesService{client}
 	client.PullRequests = &PullRequestsService{client}
+	client.Issues = &IssuesService{client}
 	return client, nil
 }
 
