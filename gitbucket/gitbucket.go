@@ -29,7 +29,7 @@ type Client struct {
 	UserAgent    string
 	Users        *UsersService
 	Repositories *RepositoriesService
-	Pullrequests *interface{}
+	PullRequests *PullRequestsService
 	Issues       *interface{}
 }
 
@@ -51,6 +51,7 @@ func NewClient(urlStr, token string) (*Client, error) {
 	}
 	client.Users = &UsersService{client}
 	client.Repositories = &RepositoriesService{client}
+	client.PullRequests = &PullRequestsService{client}
 	return client, nil
 }
 
