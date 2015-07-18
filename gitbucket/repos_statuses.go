@@ -33,3 +33,19 @@ func (s *RepositoriesService) CreateStatus(owner, repo, sha string, status *Repo
 
 	return repoStatus, resp, err
 }
+
+func (s *RepositoriesService) ListStatuses(owner, repo, ref string) ([]RepoStatus, *http.Response, error) {
+	u := fmt.Sprintf("/repos/%v/%v/commits/%v/statuses", owner, repo, ref)
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	statuses := new([]RepoStatus)
+	resp, err := s.client.Do(req, statuses)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return *statuses, resp, err
+}
