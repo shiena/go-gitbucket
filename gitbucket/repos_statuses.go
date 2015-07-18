@@ -49,3 +49,28 @@ func (s *RepositoriesService) ListStatuses(owner, repo, ref string) ([]RepoStatu
 
 	return *statuses, resp, err
 }
+
+type CombinedStatus struct {
+	State      *string      `json:"state"`
+	SHA        *string      `json:"sha"`
+	TotalCount *int         `json:"total_count"`
+	Statuses   []RepoStatus `json:"statuses"`
+	Repository *Repository  `json:"repository"`
+	URL        *string      `json:"url"`
+}
+
+func (s *RepositoriesService) GetCombinedStatus(owner, repo, ref string) (*CombinedStatus, *http.Response, error) {
+	u := fmt.Sprintf("/repos/%v/%v/commits/%v/status", owner, repo, ref)
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	status := new(CombinedStatus)
+	resp, err := s.client.Do(req, status)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return status, resp, err
+}
