@@ -20,7 +20,7 @@ type Repository struct {
 	DefaultBranch *string `json:"default_branch"`
 	Owner         *User   `json:"owner"`
 	ForksCount    *int    `json:"forks_count"`
-	WatchersCount *int    `json:"watchers_coun"`
+	WatchersCount *int    `json:"watchers_count"`
 	URL           *string `json:"url"`
 	HTTPURL       *string `json:"http_url"`
 	CloneURL      *string `json:"clone_url"`
