@@ -32,7 +32,6 @@ type commit struct {
 	Author    *CommitAuthor `json:"author"`
 	Committer *CommitAuthor `json:"committer"`
 	URL       *string       `json:"url"`
-	HTMLURL   *string       `json:"html_url"`
 }
 
 type issue struct {
