@@ -5,6 +5,8 @@
 package gitbucket
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -21,6 +23,7 @@ type Repository struct {
 	Watchers      *int    `json:"watchers"`
 	Forks         *int    `json:"forks"`
 	Private       *bool   `json:"private"`
+	AutoInit      *bool   `json:"auto_init"`
 	DefaultBranch *string `json:"default_branch"`
 	Owner         *User   `json:"owner"`
 	ForksCount    *int    `json:"forks_count"`
@@ -45,4 +48,39 @@ func (s *RepositoriesService) Get(owner, repo string) (*Repository, *http.Respon
 	}
 
 	return r, resp, err
+}
+
+func (s *RepositoriesService) Create(org string, repo *Repository) (*Repository, *http.Response, error) {
+	var u string
+	if org != "" {
+		u = fmt.Sprintf("/orgs/%v/repos", org)
+	} else {
+		u = "/user/repos"
+	}
+
+	req, err := s.client.NewRequest("POST", u, repo)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	buf := new(bytes.Buffer)
+	resp, err := s.client.Do(req, buf)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	if buf.Len() == 0 {
+		return nil, resp, err
+	}
+
+	data := buf.Bytes()
+	r := new(Repository)
+	json.Unmarshal(data, r)
+	if r.Name != nil {
+		return r, resp, err
+	}
+
+	errorResponse := &ErrorResponse{Response: resp}
+	json.Unmarshal(data, errorResponse)
+	return nil, resp, errorResponse
 }

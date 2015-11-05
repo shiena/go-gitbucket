@@ -35,6 +35,15 @@ stat, res, err := client.RepositoriesService.CreateStatus(
 		Context: gitbucket.String("continuous-integration/jenkins"),
 	},
 )
+newRepo, res, err := client.Repositoriesservice.Create(
+	"", // if parameter is not empty, set group name.
+	&gitbucket.Repository{
+		Name: gitbucket.String("Hello-World"), // Required
+		Description: gitbucket.String("This is your first repository"),
+		Private: gitbucket.Bool(true), // Default: false
+		AutoInit: gitbucket.Bool(true), // Default: false
+	},
+)
 
 // Issues API
 issues, res, err := client.IssuesService.ListComments("username", "reponame", 1)
