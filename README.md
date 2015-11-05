@@ -29,10 +29,10 @@ stat, res, err := client.RepositoriesService.CreateStatus(
 	"username",
 	"master",
 	&gitbucket.RepoStatus{
-		State: "success", // Required
-		TargetURL: "https://examples.org/build/status"
-		Description: "The build succeeded",
-		Context: "continuous-integration/jenkins",
+		State: gitbucket.String("success"), // Required
+		TargetURL: gitbucket.String("https://examples.org/build/status"),
+		Description: gitbucket.String("The build succeeded"),
+		Context: gitbucket.String("continuous-integration/jenkins"),
 	},
 )
 
@@ -43,7 +43,7 @@ issue, res, err := client.IssuesService.CreateComment(
 	"reponame",
 	1,
 	&gitbucket.IssueComment{
-		Body: "Me too",
+		Body: gitbucket.String("Me too"),
 	},
 )
 

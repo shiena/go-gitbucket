@@ -173,3 +173,21 @@ func (c *Client) RateLimit() (*RateLimit, *http.Response, error) {
 
 	return rResp, resp, err
 }
+
+func Bool(v bool) *bool {
+	p := new(bool)
+	*p = v
+	return p
+}
+
+func Int(v int) *int {
+	p := new(int)
+	*p = v
+	return p
+}
+
+func String(v string) *string {
+	p := new(string)
+	*p = v
+	return p
+}
