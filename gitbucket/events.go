@@ -77,5 +77,9 @@ type WebHookPushPayload struct {
 	Commits    []commit    `json:"commits"`
 	Pusher     *User       `json:"pusher"`
 	Ref        *string     `json:"ref"`
+	Before     *string     `json:"before"`
+	After      *string     `json:"after"`
 	Repository *Repository `json:"repository"`
+	Compare    *string     `json:"compare"`
+	HeadCommit *commit     `json:"head_commit"`
 }
