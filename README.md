@@ -88,6 +88,8 @@ func getEvent(r *http.Request) interface{} {
 		return &gitbucket.WebHookIssueCommentPayload{}
 	case gitbucket.PullRequestEvent:
 		return &gitbucket.WebHookPullRequestPayload{}
+	case gitbucket.PullRequestReviewCommentEvent:
+		return &gitbucket.WebHookPullRequestReviewCommentPayload{}
 	case gitbucket.PushEvent:
 		return &gitbucket.WebHookPushPayload{}
 	default:

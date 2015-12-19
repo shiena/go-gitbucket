@@ -12,10 +12,11 @@ import (
 type WebHookEvent string
 
 const (
-	IssuesEvent       = WebHookEvent("issues")
-	IssueCommentEvent = WebHookEvent("issue_comment")
-	PullRequestEvent  = WebHookEvent("pull_request")
-	PushEvent         = WebHookEvent("push")
+	IssuesEvent                   = WebHookEvent("issues")
+	IssueCommentEvent             = WebHookEvent("issue_comment")
+	PullRequestEvent              = WebHookEvent("pull_request")
+	PullRequestReviewCommentEvent = WebHookEvent("pull_request_review_comment")
+	PushEvent                     = WebHookEvent("push")
 )
 
 func GetWebHookEvent(req *http.Request) WebHookEvent {
@@ -46,6 +47,30 @@ type issue struct {
 	HTMLURL     *string    `json:"html_url"`
 }
 
+type path struct {
+	Href *string `json:"href"`
+}
+
+type links struct {
+	Self        *path `json:"self"`
+	HTML        *path `json:"html"`
+	PullRequest *path `json:"pull_request"`
+}
+
+type comment struct {
+	ID             *int       `json:"id"`
+	Path           *string    `json:"path"`
+	CommitID       *string    `json:"commit_id"`
+	User           *User      `json:"user"`
+	Body           *string    `json:"body"`
+	CreatedAt      *time.Time `json:"created_at"`
+	UpdatedAt      *time.Time `json:"updated_at"`
+	URL            *string    `json:"url"`
+	HTMLURL        *string    `json:"html_url"`
+	PullRequestURL *string    `json:"pull_request_url"`
+	Links          *links     `json:"_links"`
+}
+
 // Action is one of "opened", "reopen", "closed"
 type WebHookIssuesPayload struct {
 	Action     *string     `json:"action"`
@@ -71,6 +96,15 @@ type WebHookPullRequestPayload struct {
 	Number      *int         `json:"number"`
 	PullRequest *PullRequest `json:"pull_request"`
 	Repository  *Repository  `json:"repository"`
+}
+
+// Action is only "created"
+type WebHookPullRequestReviewCommentPayload struct {
+	Action      *string      `json:"action"`
+	Comment     *comment     `json:"comment"`
+	PullRequest *PullRequest `json:"pull_request"`
+	Repository  *Repository  `json:"repository"`
+	Sender      *User        `json:"sender"`
 }
 
 type WebHookPushPayload struct {
