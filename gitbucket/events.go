@@ -57,6 +57,11 @@ type links struct {
 	PullRequest *path `json:"pull_request"`
 }
 
+type pusher struct {
+	Name  *string `json:"name"`
+	Email *string `json:"email"`
+}
+
 type comment struct {
 	ID             *int       `json:"id"`
 	Path           *string    `json:"path"`
@@ -109,7 +114,8 @@ type WebHookPullRequestReviewCommentPayload struct {
 
 type WebHookPushPayload struct {
 	Commits    []commit    `json:"commits"`
-	Pusher     *User       `json:"pusher"`
+	Pusher     *pusher     `json:"pusher"`
+	Sender     *User       `json:"sender"`
 	Ref        *string     `json:"ref"`
 	Before     *string     `json:"before"`
 	After      *string     `json:"after"`
