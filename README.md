@@ -14,18 +14,18 @@ GitBucket API
 
 ```go
 url := "http://privatesite.example.org:8080/gitbucket/"
-accessToken := ... // Generated access token from your account settings
+accessToken := "... your access token ..." // Generated from your account settings
 
-client := gitbucket.NewClient(url, accessToken)
+client, err := gitbucket.NewClient(url, accessToken)
 
 // Users API
-user, res, err := client.UsersService.Get("username")
+user, res, err := client.Users.Get("username")
 
 // Repositories API
-repo, res, err := client.RepositoriesService.Get("username", "reponame")
-repos, res, err := client.RepositoriesService.ListStatuses("username", "master")
-stats, res, err := client.RepositoriesService.GetCombinedStatus("username", "master")
-stat, res, err := client.RepositoriesService.CreateStatus(
+repo, res, err := client.Repositories.Get("username", "reponame")
+repos, res, err := client.Repositories.ListStatuses("username", "master")
+stats, res, err := client.Repositories.GetCombinedStatus("username", "master")
+stat, res, err := client.Repositories.CreateStatus(
 	"username",
 	"master",
 	&gitbucket.RepoStatus{
@@ -35,7 +35,7 @@ stat, res, err := client.RepositoriesService.CreateStatus(
 		Context: gitbucket.String("continuous-integration/jenkins"),
 	},
 )
-newRepo, res, err := client.Repositoriesservice.Create(
+newRepo, res, err := client.Repositories.Create(
 	"", // if parameter is not empty, set group name.
 	&gitbucket.Repository{
 		Name: gitbucket.String("Hello-World"), // Required
@@ -46,8 +46,8 @@ newRepo, res, err := client.Repositoriesservice.Create(
 )
 
 // Issues API
-issues, res, err := client.IssuesService.ListComments("username", "reponame", 1)
-issue, res, err := client.IssuesService.CreateComment(
+issues, res, err := client.Issues.ListComments("username", "reponame", 1)
+issue, res, err := client.Issues.CreateComment(
 	"username",
 	"reponame",
 	1,
@@ -57,9 +57,9 @@ issue, res, err := client.IssuesService.CreateComment(
 )
 
 // Pull Requests API
-pull, res, err := client.PullRequestService.Get("username", "reponame", 1)
-pulls, res, err := client.PullRequestService.List("username", "reponame")
-commits, res, err := client.PullRequestService.ListCommits("username", "reponame", 1)
+pull, res, err := client.PullRequest.Get("username", "reponame", 1)
+pulls, res, err := client.PullRequest.List("username", "reponame")
+commits, res, err := client.PullRequest.ListCommits("username", "reponame", 1)
 
 // Others API
 rateLimit, res, err := client.RateLimit()
