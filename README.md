@@ -22,12 +22,13 @@ client, err := gitbucket.NewClient(url, accessToken)
 user, res, err := client.Users.Get("username")
 
 // Repositories API
-repo, res, err := client.Repositories.Get("username", "reponame")
-repos, res, err := client.Repositories.ListStatuses("username", "master")
-stats, res, err := client.Repositories.GetCombinedStatus("username", "master")
+repo, res, err := client.Repositories.Get("username", "reponame", "ref")
+repos, res, err := client.Repositories.ListStatuses("username", "master", "ref")
+stats, res, err := client.Repositories.GetCombinedStatus("username", "master", "ref")
 stat, res, err := client.Repositories.CreateStatus(
 	"username",
 	"master",
+	"sha",
 	&gitbucket.RepoStatus{
 		State: gitbucket.String("success"), // Required
 		TargetURL: gitbucket.String("https://examples.org/build/status"),
@@ -57,9 +58,9 @@ issue, res, err := client.Issues.CreateComment(
 )
 
 // Pull Requests API
-pull, res, err := client.PullRequest.Get("username", "reponame", 1)
-pulls, res, err := client.PullRequest.List("username", "reponame")
-commits, res, err := client.PullRequest.ListCommits("username", "reponame", 1)
+pull, res, err := client.PullRequests.Get("username", "reponame", 1)
+pulls, res, err := client.PullRequests.List("username", "reponame")
+commits, res, err := client.PullRequests.ListCommits("username", "reponame", 1)
 
 // Others API
 rateLimit, res, err := client.RateLimit()
