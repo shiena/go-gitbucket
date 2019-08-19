@@ -1,13 +1,19 @@
-[![GoDoc](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket?status.svg)](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket)
+# Fork from https://github.com/shiena/go-gitbucket
+
+- Added organisations listing
+- Added users listing
+- Added go module support
 
 # go-gitbucket
+
+[![GoDoc](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket?status.svg)](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket)
 
 go-gitbucket is a Go client library for accessing the [GitBucket API](https://github.com/takezoe/gitbucket/wiki/API-WebHook).
 
 ## Usage
 
 ```go
-import "github.com/shiena/go-gitbucket/gitbucket"
+import "github.com/StingrayDigital/go-gitbucket/gitbucket"
 ```
 
 GitBucket API
@@ -77,7 +83,7 @@ import (
 	"net/http"
 
 	"github.com/k0kubun/pp"
-	"github.com/shiena/go-gitbucket/gitbucket"
+	"github.com/StingrayDigital/go-gitbucket/gitbucket"
 )
 
 func getEvent(r *http.Request) interface{} {
