@@ -45,3 +45,19 @@ func (s *UsersService) Get(user string) (*User, *http.Response, error) {
 
 	return uResp, resp, err
 }
+
+func (s *UsersService) GetAll() ([]User, *http.Response, error) {
+	req, err := s.client.NewRequest("GET", "/users", nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	uResp := []User{}
+	resp, err := s.client.Do(req, &uResp)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return uResp, resp, err
+}
+
