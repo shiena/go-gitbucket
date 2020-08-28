@@ -1,6 +1,6 @@
 # go-gitbucket
 
-[![GoDoc](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket?status.svg)](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/shiena/go-gitbucket/gitbucket)](https://pkg.go.dev/github.com/shiena/go-gitbucket/gitbucket)
 
 go-gitbucket is a Go client library for accessing the [GitBucket API](https://github.com/takezoe/gitbucket/wiki/API-WebHook).
 
