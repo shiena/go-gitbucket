@@ -1,9 +1,3 @@
-# Fork from https://github.com/shiena/go-gitbucket
-
-- Added organisations listing
-- Added users listing
-- Added go module support
-
 # go-gitbucket
 
 [![GoDoc](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket?status.svg)](https://godoc.org/github.com/shiena/go-gitbucket/gitbucket)
@@ -121,6 +115,18 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
 ```
+
+## Credits
+
+- @toVersus
+    - Fix sample code
+- @StingrayDigital
+    - Added organisations listing
+    - Added users listing
+    - Added go module support
+- @cooperspencer
+    - Added get user repo
+	- Added sshurl
 
 ## License
 
