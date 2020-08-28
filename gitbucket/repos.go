@@ -30,6 +30,7 @@ type Repository struct {
 	WatchersCount *int    `json:"watchers_count"`
 	URL           *string `json:"url"`
 	HTTPURL       *string `json:"http_url"`
+	SSHURL        *string `json:"ssh_url"`
 	CloneURL      *string `json:"clone_url"`
 	HTMLURL       *string `json:"html_url"`
 }
