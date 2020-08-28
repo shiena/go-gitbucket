@@ -34,7 +34,7 @@ type Repository struct {
 	HTMLURL       *string `json:"html_url"`
 }
 
-func (s *RepositoriesService) Get(owner, repo string) (*Repository, *http.Response, error) {
+func (s *RepositoriesService) GetUserRepository(owner, repo string) (*Repository, *http.Response, error) {
 	u := fmt.Sprintf("/repos/%v/%v", owner, repo)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
@@ -42,6 +42,38 @@ func (s *RepositoriesService) Get(owner, repo string) (*Repository, *http.Respon
 	}
 
 	r := new(Repository)
+	resp, err := s.client.Do(req, r)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return r, resp, err
+}
+
+func (s *RepositoriesService) GetUserRepositories(owner string) (*[]Repository, *http.Response, error) {
+	u := fmt.Sprintf("/repos/%v", owner)
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	r := new([]Repository)
+	resp, err := s.client.Do(req, r)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return r, resp, err
+}
+
+func (s *RepositoriesService) GetRepositories() (*[]Repository, *http.Response, error) {
+	u := fmt.Sprintf("/user/repos/")
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	r := new([]Repository)
 	resp, err := s.client.Do(req, r)
 	if err != nil {
 		return nil, resp, err
