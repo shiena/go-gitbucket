@@ -60,4 +60,3 @@ func (s *UsersService) GetAll() ([]User, *http.Response, error) {
 
 	return uResp, resp, err
 }
-
