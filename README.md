@@ -1,4 +1,4 @@
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/shiena/go-gitbucket/gitbucket)](https://pkg.go.dev/github.com/shiena/go-gitbucket/gitbucket)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/shiena/go-gitbucket)](https://pkg.go.dev/github.com/shiena/go-gitbucket)
 [![Go Report Card](https://goreportcard.com/badge/github.com/shiena/go-gitbucket)](https://goreportcard.com/report/github.com/shiena/go-gitbucket)
 
 # go-gitbucket
